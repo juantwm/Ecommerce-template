@@ -1,19 +1,26 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Login from "./pages/Login"
-import "./App.css"
-
-function Dashboard() {
-  return (
-    <h1 className="p-10 text-3xl font-bold">🏠 Bienvenido al Dashboard</h1>
-  )
-}
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+import Home from "./pages/Home"
+import ProductDetail from "./pages/ProductDetail"
+import Cart from "./pages/Cart"
+import Checkout from "./pages/Checkout"
 
 function App() {
   return (
     <BrowserRouter>
+      {/* Un Navbar temporal para probar la navegación */}
+      <nav style={{ padding: '1rem', borderBottom: '1px solid #ccc', display: 'flex', gap: '20px' }}>
+        <Link to="/">Inicio</Link>
+        <Link to="/cart">Carrito</Link>
+        <Link to="/checkout">Checkout</Link>
+        {/* Un link de prueba a un producto X */}
+        <Link to="/product/123">Producto Demo</Link>
+      </nav>
+
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </BrowserRouter>
   )
