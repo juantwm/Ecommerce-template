@@ -14,3 +14,27 @@ model User {
   password String
   role     String  @default("USER")
 }
+
+model Category {
+  id        Int       @id @default(autoincrement()) // ID Numérico
+  name      String
+  slug      String    @unique // Para la URL amigable
+  products  Product[] 
+  createdAt DateTime  @default(now())
+}
+
+model Product {
+  id          Int      @id @default(autoincrement()) // ID Numérico
+  name        String
+  description String
+  price       Float
+  stock       Int
+  images      String[] // Array de URLs
+  
+  // Relación correcta:
+  categoryId  Int      // Prisma prefiere 'categoryId' antes que 'idCategory'
+  category    Category @relation(fields: [categoryId], references: [id])
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
