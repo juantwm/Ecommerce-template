@@ -1,32 +1,23 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import morgan from 'morgan'; // <--- NUEVO
 import { PrismaClient } from '@prisma/client';
 
 const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
 
+// Middlewares
+app.use(morgan('dev')); // <--- NUEVO: Nos muestra logs bonitos en consola
 app.use(cors());
 app.use(express.json());
 
-// Ruta de prueba
+// Ruta Health Check
 app.get('/', (req: Request, res: Response) => {
-  res.json({ 
-    status: 'API funcionando correctamente 🚀',
-    timestamp: new Date()
-  });
+  res.json({ status: 'API Online 🚀', time: new Date() });
 });
 
-// Ruta de usuarios
-app.get('/users', async (req: Request, res: Response) => {
-  try {
-    const users = await prisma.user.findMany();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ error: 'Error al conectar con la base de datos' });
-  }
-});
-
+// Levantar servidor
 app.listen(PORT, () => {
   console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
 });
