@@ -1,17 +1,16 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-// CAMBIO IMPORTANTE AQUI ABAJO:
-import Login from "./pages/Login"; 
-
-function Dashboard() {
-  return <h1 className="p-10 text-3xl font-bold">🏠 Bienvenido al Dashboard</h1>;
-}
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import ProductList from './pages/Products/productList';
+import CreateProduct from './pages/Products/createProduct';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* Redirigir la raíz a productos por ahora */}
+        <Route path="/" element={<Navigate to="/products" />} />
+        
+        <Route path="/products" element={<ProductList />} />
+        <Route path="/products/new" element={<CreateProduct />} />
       </Routes>
     </BrowserRouter>
   );
