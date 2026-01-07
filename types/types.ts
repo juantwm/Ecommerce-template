@@ -12,7 +12,12 @@ export interface Product {
 }
 
 export interface Category {
-    id: number;           // Cambiado de String a Number
+    id: number;
     name: string;
-    slug?: string;        // Agregamos slug (opcional en el front al crear)
+    slug?: string;
+    
+    // 👇 Agrega esto para que no te dé error la tabla
+    _count?: {
+        products: number;
+    };
 }
