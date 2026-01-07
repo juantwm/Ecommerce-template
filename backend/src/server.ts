@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import morgan from 'morgan'; // <--- NUEVO
 import { PrismaClient } from '@prisma/client';
+import categoryRoutes from './Routes/categoryRoutes';
 
 const app = express();
 const prisma = new PrismaClient();
@@ -11,6 +12,8 @@ const PORT = process.env.PORT || 3000;
 app.use(morgan('dev')); // <--- NUEVO: Nos muestra logs bonitos en consola
 app.use(cors());
 app.use(express.json());
+
+app.use('/api/categories', categoryRoutes);
 
 // Ruta Health Check
 app.get('/', (req: Request, res: Response) => {
