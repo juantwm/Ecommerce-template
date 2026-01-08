@@ -4,6 +4,7 @@ import Footer from "./components/footer";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail"; // (Para el futuro)
 import CartPage from './pages/Cart';
+import Checkout from "./pages/Checkout";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             {/* Aquí agregaremos más rutas luego: */}
             { <Route path="/product/:id" element={<ProductDetail />} /> }
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </main> 
 
