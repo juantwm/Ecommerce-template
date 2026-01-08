@@ -3,11 +3,14 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ShoppingCart } from "lucide-react"; // Asegúrate de tener lucide-react instalado
 import type { Product } from "../types"; // Importamos el tipo
+import { useCartStore } from "@/lib/useCartStore";
+
 
 export default function ProductDetail() {
   const { id } = useParams(); // Obtenemos el ID de la URL (ej: /product/5)
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+  const addItem = useCartStore((state) => state.addItem);
 
   useEffect(() => {
     // Buscamos el producto individual en el backend
@@ -26,6 +29,13 @@ export default function ProductDetail() {
 
     fetchProduct();
   }, [id]);
+
+  const handleAddToCart = () => {
+    if (product) {
+      addItem(product);
+      alert(`¡${product.name} agregado al carrito!`); // Un feedback simple
+    }
+  };
 
   if (loading) return <div className="p-10 text-center">Cargando producto...</div>;
   
@@ -73,8 +83,12 @@ export default function ProductDetail() {
                </span>
             </div>
 
-            {/* Botón de Añadir al Carrito (Por ahora solo visual) */}
-            <Button size="lg" className="w-full md:w-auto" disabled={product.stock <= 0}>
+            <Button 
+                size="lg" 
+                className="w-full md:w-auto" 
+                disabled={product.stock <= 0}
+                onClick={handleAddToCart} // Aquí enlazamos la acción
+            >
               <ShoppingCart className="mr-2 h-5 w-5" />
               {product.stock > 0 ? "Agregar al Carrito" : "Agotado"}
             </Button>

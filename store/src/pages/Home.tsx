@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useCartStore } from "@/lib/useCartStore";
 
 // Definimos la interfaz básica del producto para TypeScript
 interface Product {
@@ -16,6 +17,8 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const addItem = useCartStore((state) => state.addItem);
+
   useEffect(() => {
     // Fetch a tu Backend
     fetch("http://localhost:3000/api/products")
@@ -29,6 +32,11 @@ export default function Home() {
         setLoading(false);
       });
   }, []);
+
+  const handleAddToCart = (product: Product) => {
+    addItem(product);
+    alert("¡Agregado al carrito!"); // Feedback temporal
+  };
 
   if (loading) {
     return <div className="text-center py-20">Cargando productos...</div>;
@@ -80,8 +88,12 @@ export default function Home() {
 
             {/* Botón de Acción */}
             <CardFooter className="p-4 pt-0">
-              <Button className="w-full" disabled={product.stock <= 0}>
-                {product.stock > 0 ? "Añadir al Carrito" : "Agotado"}
+              <Button 
+                  className="w-full" 
+                  disabled={product.stock <= 0}
+                  onClick={() => handleAddToCart(product)}
+                >
+                  {product.stock > 0 ? "Añadir al Carrito" : "Agotado"}
               </Button>
             </CardFooter>
           </Card>
