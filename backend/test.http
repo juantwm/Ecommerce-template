@@ -1,0 +1,18 @@
+### 1. Registrar un nuevo usuario (El Guardián)
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "guardian@test.com",
+  "password": "passwordSuperSegura123",
+  "name": "Juan el Guardian"
+}
+
+### 2. Iniciar Sesión (Conseguir el Token)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "guardian@test.com",
+  "password": "passwordSuperSegura123"
+}

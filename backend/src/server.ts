@@ -5,6 +5,7 @@ import { PrismaClient } from '@prisma/client';
 import categoryRoutes from './Routes/categoryRoutes';
 import productRoutes from './Routes/productRoutes';
 import orderRoutes from './Routes/orderRoutes';
+import authRoutes from './Routes/authRoutes';
 
 const app = express();
 const prisma = new PrismaClient();
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 3000;
 app.use(morgan('dev')); // <--- NUEVO: Nos muestra logs bonitos en consola
 app.use(cors());
 app.use(express.json());
+app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);  
 app.use('/api/categories', categoryRoutes);
 app.use('/api/orders', orderRoutes);
