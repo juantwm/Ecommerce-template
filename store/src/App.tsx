@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 // import ProductDetail from "./pages/ProductDetail"; // (Para el futuro)
 // import Cart from "./pages/Cart"; // (Para el futuro)
 
+
 function App() {
   return (
     <BrowserRouter>
