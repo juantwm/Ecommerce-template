@@ -1,6 +1,6 @@
 import { Package, LayoutList } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { LayoutDashboard, ShoppingBag, Layers, LogOut } from "lucide-react"; // 1. Importamos LogOut
+import { LayoutDashboard, ShoppingBag, Layers, LogOut, DollarSign } from "lucide-react"; // 1. Importamos LogOut
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -38,6 +38,11 @@ export default function Sidebar() {
           <Link to="/products" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors text-blue-300">
             <Package className="h-5 w-5"/>
             <span>Productos</span>
+          </Link>
+
+          <Link to="/orders" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors text-blue-300">
+          <DollarSign className="h-5 w-5" />
+          <span>Ventas</span>
           </Link>
         </nav>
       </div>

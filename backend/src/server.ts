@@ -4,6 +4,7 @@ import morgan from 'morgan'; // <--- NUEVO
 import { PrismaClient } from '@prisma/client';
 import categoryRoutes from './Routes/categoryRoutes';
 import productRoutes from './Routes/productRoutes';
+import orderRoutes from './Routes/orderRoutes';
 
 const app = express();
 const prisma = new PrismaClient();
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/api/products', productRoutes);  
 app.use('/api/categories', categoryRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Ruta Health Check
 app.get('/', (req: Request, res: Response) => {

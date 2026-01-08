@@ -30,6 +30,7 @@ model Product {
   price       Float
   stock       Int
   images      String[] // Array de URLs
+  orderItems OrderItem[]
   
   // Relación correcta:
   categoryId  Int      // Prisma prefiere 'categoryId' antes que 'idCategory'
@@ -37,4 +38,27 @@ model Product {
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  total       Float       // Total a pagar
+  status      String      @default("PENDING") // PENDING, COMPLETED, CANCELLED
+  guestName   String      // Nombre del cliente (invitado)
+  guestEmail  String      // Contacto
+  
+  items       OrderItem[] // Relación con los items
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  quantity  Int
+  price     Float   // Guardamos el precio al momento de la compra (por si luego cambia)
+  
+  orderId   Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
 }
