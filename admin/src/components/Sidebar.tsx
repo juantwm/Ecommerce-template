@@ -7,9 +7,9 @@ export default function Sidebar() {
 
   // 2. Función para cerrar sesión
   const handleLogout = () => {
-    // Si guardaste algún token o usuario en localStorage, bórralo aquí:
-    // localStorage.removeItem("token"); 
-    // localStorage.removeItem("user");
+    
+     localStorage.removeItem("token"); 
+     localStorage.removeItem("user");
     
     // Redirigir al Login
     navigate("/");

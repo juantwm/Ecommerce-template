@@ -3,40 +3,42 @@ import prisma from '../lib/prisma'; // Asegúrate de que este archivo exporte tu
 import { hashPassword, comparePassword, generateToken } from '../lib/auth';
 
 // REGISTRO
+// backend/src/Controllers/authController.ts
+
 export const register = async (req: Request, res: Response) => {
-    try 
-    {
-        const { email, password, name } = req.body;
-
-    // 1. Verificar si ya existe
-        const existingUser = await prisma.user.findUnique({ where: { gmail: email } });
-    if (existingUser) 
-    {
+    try {
+      // 1. ACEPTAR 'role' y leer 'email'
+      const { email, password, name, role } = req.body; 
+  
+      // Validación rápida por si faltan datos
+      if (!email || !password || !name) {
+         return res.status(400).json({ error: 'Faltan datos: email, password o name' });
+      }
+  
+      const existingUser = await prisma.user.findUnique({ where: { gmail: email } });
+      if (existingUser) {
         return res.status(400).json({ error: 'El usuario ya existe' });
-    }
-
-    // 2. Encriptar contraseña
-    const hashedPassword = await hashPassword(password);
-
-    // 3. Crear usuario
-    const user = await prisma.user.create({
+      }
+  
+      const hashedPassword = await hashPassword(password);
+  
+      const user = await prisma.user.create({
         data: {
-        gmail: email,
-        name: name,
-        password: hashedPassword,
-        role: 'USER' // Por defecto todos son usuarios normales
+          gmail: email,
+          name: name,
+          password: hashedPassword,
+          // 2. USAR EL ROL QUE MANDAMOS (o USER por defecto)
+          role: role || 'USER' 
         }
-    });
-
-    // 4. Responder (OJO: No devolvemos la contraseña)
-    res.status(201).json({ message: 'Usuario creado', userId: user.id });
-
-    } 
-    catch (error) 
-    {
-    res.status(500).json({ error: 'Error en el registro' });
+      });
+  
+      res.status(201).json({ message: 'Usuario creado', userId: user.id });
+  
+    } catch (error) {
+      console.error(error); // Para ver el error real en consola si vuelve a pasar
+      res.status(500).json({ error: 'Error en el registro' });
     }
-};
+  };
 
 // LOGIN
 export const login = async (req: Request, res: Response) => {
