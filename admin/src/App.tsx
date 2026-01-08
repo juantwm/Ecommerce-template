@@ -7,6 +7,7 @@ import CreateCategory from "./pages/Categories/CreateCategory";
 import Sidebar from "./components/Sidebar"; 
 import ProductList from './pages/Products/productList';
 import CreateProduct from './pages/Products/createProduct';
+import EditProduct from "./pages/Products/editProduct";
 
 // 3. LAYOUT (Tu estructura nueva)
 function AdminLayout() {
@@ -41,8 +42,9 @@ function App() {
           <Route path="/categories/create" element={<CreateCategory />} />
 
         
-          { <Route path="/products" element={<ProductList />} /> }
-          { <Route path="/products/new" element={<CreateProduct />} /> }
+          <Route path="/products" element={<ProductList />} />          {/* La lista */}
+          <Route path="/products/create" element={<CreateProduct />} /> {/* El formulario */}
+          <Route path="/products/edit/:id" element={<EditProduct />} />
           
         </Route>
       </Routes>

@@ -1,6 +1,8 @@
 // src/components/Sidebar.tsx
 import { Link } from "react-router-dom";
 import { LayoutDashboard, ShoppingBag, Layers } from "lucide-react";
+import { Package, LayoutList } from "lucide-react";
+
 
 export default function Sidebar() {
   return (
@@ -17,6 +19,10 @@ export default function Sidebar() {
         <Link to="/categories" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors text-blue-300">
           <Layers className="h-5 w-5" />
           <span>Categorías</span>
+        </Link>
+        <Link to="/products" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors text-blue-300">
+          <Package className="h-5 w-5"/>
+          <span>Productos</span>
         </Link>
       </nav>
     </aside>
