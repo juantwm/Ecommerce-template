@@ -51,3 +51,26 @@ export const deleteCategory = async (req: Request, res: Response) => {
     res.status(400).json({ error: 'No se puede eliminar: Probablemente tiene productos asociados.' });
   }
 };
+
+
+// PUT: Actualizar categoría
+export const updateCategory = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    if (!name) return res.status(400).json({ error: 'El nombre es obligatorio' });
+
+    // Si cambia el nombre, regeneramos el slug
+    const slug = slugify(name, { lower: true, strict: true });
+
+    const updatedCategory = await prisma.category.update({
+      where: { id: Number(id) },
+      data: { name, slug }
+    });
+
+    res.json(updatedCategory);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar la categoría' });
+  }
+};
