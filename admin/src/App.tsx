@@ -1,54 +1,50 @@
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-
-// 1. TUS COMPONENTES (Activos)
-import Login from "./pages/Login"; 
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import ProductList from "./pages/Products/productList";
+import CreateProduct from "./pages/Products/createProduct";
+import EditProduct from "./pages/Products/editProduct";
 import CategoryList from "./pages/Categories/CategoryList";
 import CreateCategory from "./pages/Categories/CreateCategory";
-import Sidebar from "./components/Sidebar"; 
-import ProductList from './pages/Products/productList';
-import CreateProduct from './pages/Products/createProduct';
-import EditProduct from "./pages/Products/editProduct";
 import EditCategory from "./pages/Categories/EditCategory";
 import Orders from "./pages/Orders";
-
-// 3. LAYOUT (Tu estructura nueva)
-function AdminLayout() {
-  return (
-    <div className="flex min-h-screen bg-slate-50">
-      <Sidebar />
-      <main className="flex-1 p-6 overflow-y-auto">
-        <Outlet /> 
-      </main>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return <h1 className="text-3xl font-bold">🏠 Dashboard</h1>;
-}
+import Login from "./pages/Login";
+// Importamos al guardia de seguridad
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* RUTA PÚBLICA */}
-        <Route path="/" element={<Login />} />
+        {/* RUTA PÚBLICA: Login (Sin Sidebar) */}
+        <Route path="/login" element={<Login />} />
 
-        {/* RUTAS PRIVADAS (Con Sidebar) */}
-        <Route element={<AdminLayout />}>
-          
-          <Route path="/dashboard" element={<Dashboard />} />
+        {/* RUTAS PRIVADAS (Protegidas por el Gorila) */}
+        <Route element={<ProtectedRoute />}>
+            <Route
+              path="/*"
+              element={
+                <div className="flex min-h-screen bg-slate-50">
+                  <Sidebar /> {/* El Sidebar solo aparece si entraste */}
+                  <main className="flex-1 p-8">
+                    <Routes>
+                      <Route path="/" element={<ProductList />} />
+                      
+                      {/* Productos */}
+                      <Route path="/products/new" element={<CreateProduct />} />
+                      <Route path="/products/edit/:id" element={<EditProduct />} />
+                      
+                      {/* Categorías */}
+                      <Route path="/categories" element={<CategoryList />} />
+                      <Route path="/categories/new" element={<CreateCategory />} />
+                      <Route path="/categories/edit/:id" element={<EditCategory />} />
 
-          {/* --- TUS RUTAS (CATEGORÍAS) --- */}
-          <Route path="/categories" element={<CategoryList />} />
-          <Route path="/categories/create" element={<CreateCategory />} />
-          <Route path="/categories/edit/:id" element={<EditCategory />} />
-          <Route path="/orders" element={<Orders />} />
-        
-          <Route path="/products" element={<ProductList />} />          {/* La lista */}
-          <Route path="/products/create" element={<CreateProduct />} /> {/* El formulario */}
-          <Route path="/products/edit/:id" element={<EditProduct />} />
-          
+                      {/* Ventas */}
+                      <Route path="/orders" element={<Orders />} />
+                    </Routes>
+                  </main>
+                </div>
+              }
+            />
         </Route>
       </Routes>
     </BrowserRouter>
