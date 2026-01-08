@@ -11,8 +11,7 @@ export default function Sidebar() {
      localStorage.removeItem("token"); 
      localStorage.removeItem("user");
     
-    // Redirigir al Login
-    navigate("/");
+     navigate("/login");
   };
 
   return (
