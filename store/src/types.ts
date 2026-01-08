@@ -6,7 +6,6 @@ export interface Product {
     stock: number;
     categoryId: number;   // Cambiado de 'idCategory' a 'categoryId'
     images: string[];     // Cambiado de 'image' a 'images' (plural)
-    
     // Opcional: A veces el backend devuelve la categoría completa
     category?: Category; 
 }

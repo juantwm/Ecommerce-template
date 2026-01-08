@@ -4,6 +4,7 @@ import ProductDetail from "./pages/ProductDetail"
 import Cart from "./pages/Cart"
 import Checkout from "./pages/Checkout"
 
+
 function App() {
   return (
     <BrowserRouter>
