@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import Home from "./pages/Home";
-// import ProductDetail from "./pages/ProductDetail"; // (Para el futuro)
+ import ProductDetail from "./pages/ProductDetail"; // (Para el futuro)
 // import Cart from "./pages/Cart"; // (Para el futuro)
 
 
@@ -18,7 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             {/* Aquí agregaremos más rutas luego: */}
-            {/* <Route path="/product/:id" element={<ProductDetail />} /> */}
+            { <Route path="/product/:id" element={<ProductDetail />} /> }
             {/* <Route path="/cart" element={<Cart />} /> */}
           </Routes>
         </main>

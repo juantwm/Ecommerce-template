@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -48,6 +49,7 @@ export default function Home() {
             
             {/* Imagen del producto */}
             <div className="h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
+            <Link to={`/product/${product.id}`} className="w-full h-full">
               {product.images && product.images.length > 0 ? (
                 <img 
                   src={product.images[0]} 
@@ -57,12 +59,15 @@ export default function Home() {
               ) : (
                 <span className="text-gray-400 text-sm">Sin imagen</span>
               )}
+              </Link>
             </div>
 
             {/* Información */}
             <CardHeader className="p-4 pb-0">
               <CardTitle className="text-lg truncate" title={product.name}>
+              <Link to={`/product/${product.id}`} className="hover:underline hover:text-blue-600 transition-colors">
                 {product.name}
+                </Link>
               </CardTitle>
             </CardHeader>
             
