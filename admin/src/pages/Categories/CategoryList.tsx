@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
-import { Trash2, Plus } from "lucide-react";
+import { Trash2, Plus, Pencil } from "lucide-react";
 import { Category } from '@/types';
+
 
 export default function CategoryList() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -81,10 +82,17 @@ export default function CategoryList() {
                 <td className="p-3 text-gray-500">{cat.slug}</td>
                 {/* Agregamos el chequeo seguro (?.) para evitar errores si _count no viene */}
                 <td className="p-3">{cat._count?.products || 0}</td>
-                <td className="p-3 text-right">
-                  <Button variant="destructive" size="sm" onClick={() => handleDelete(cat.id)}>
-                    <Trash2 className="h-4 w-4" />
+                <td className="p-3 text-right space-x-2">
+
+                <Link to={`/categories/edit/${cat.id}`}>
+                  <Button variant="outline" size="sm">
+                    <Pencil className="h-4 w-4 text-blue-600" />
                   </Button>
+                </Link>
+
+                <Button variant="destructive" size="sm" onClick={() => handleDelete(cat.id)}>
+                  <Trash2 className="h-4 w-4" />
+                </Button>
                 </td>
               </tr>
             ))}
