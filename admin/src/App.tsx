@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
+import Dashboard from "./pages/Dashboard";
 import ProductList from "./pages/Products/productList";
 import CreateProduct from "./pages/Products/createProduct";
 import EditProduct from "./pages/Products/editProduct";
@@ -26,10 +27,15 @@ function App() {
                 <div className="flex min-h-screen bg-slate-50">
                   <Sidebar /> {/* El Sidebar solo aparece si entraste */}
                   <main className="flex-1 p-8">
-                    <Routes>
-                      <Route path="/" element={<ProductList />} />
+                  <Routes>
+                      {/* 2. Cuando entras a la raíz, redirigir al Dashboard */}
+                      <Route path="/" element={<Navigate to="/dashboard" replace />} />
                       
-                      {/* Productos */}
+                      {/* 3. Definimos la ruta explícita del Dashboard */}
+                      <Route path="/dashboard" element={<Dashboard />} />
+
+                      {/* 4. AQUI ESTABA EL ERROR: Agregamos la ruta base de productos */}
+                      <Route path="/products" element={<ProductList />} />
                       <Route path="/products/new" element={<CreateProduct />} />
                       <Route path="/products/edit/:id" element={<EditProduct />} />
                       
